@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript">
+	//object needs to start with cap.
+		var DonutShop = function(local, minCustPerHour, maxCustPerHour, averDonutPerCust, operationHour){
+			this.locationName=local;
+			this.min=minCustPerHour;
+			this.max=maxCustPerHour;
+			this.ave=averDonutPerCust;
+			this.hour=operationHour;
+
+		// Returns a random integer between min (included) and max (included)
+		// Using Math.round() will give you a non-uniform distribution!
+		var min;
+		var max;
+		function getRandomIntInclusive(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+			// Calculate the total donut counts per day to bake
+			// Based on the total count per day, calculate how many to bake per hour during the business hour.
+			this.bakeCount = function(){
+
+				var dountCountPerDay = 0;
+
+				for(i=1; i <= this.hour; i++){
+
+					var randomNumber = getRandomIntInclusive(this.min, this.max);
+
+					dountCountPerDay += randomNumber * this.ave;
+				};
+
+				var donutCountPerHour = Math.round(dountCountPerDay/this.hour);
+
+				var dountCountPerDayRoundUp =  Math.round(dountCountPerDay);
+
+				console.log(this.locationName + ": Bake " + dountCountPerDayRoundUp + " per day / " + donutCountPerHour + " per hour.");
+			};
+		};
+
+		// Create new objects for the provided locations
+		var downtownLocation = new DonutShop("Downtown", 8, 43, 4.50, 8);
+
+		var capitolHillLocation = new DonutShop("Capitol Hill", 4, 37, 2.00, 24);
+
+		var sluLocation = new DonutShop("South Lake Union", 9, 23, 6.33, 10);
+
+		var wedgewoodLocation = new DonutShop("Wedgewood", 2, 28, 1.25, 7);
+
+		var ballardLocation = new DonutShop("Ballard", 8, 58, 3.75, 10);
+
+		// Call bakedCount functin for each location
+		downtownLocation.bakeCount();
+		capitolHillLocation.bakeCount();
+		sluLocation.bakeCount();
+		wedgewoodLocation.bakeCount();
+		ballardLocation.bakeCount();
+
+	</script>
+</head>
+<body>
+
+<article>
+	<header>
+		<h1>Structured Donuts Shop</h1>
+		<h2>This is based off the donut shop similation assignment.</h2>
+	</header>
+	<ol>
+		<li>Create a DonutShop constructor with properties: local, minCustPerHour, maxCustPerHour, averDonutPerCust, operationHour.</li>
+		<li>Generated randomNumber, the random number of customer per hour ranged between minCustPerHour and maxCustPerHour.</li>
+		<li>Calculate how many donuts will be sold by multiplying the averDonutPerCust and customer number per hour.</li>
+		<li>Calculate the total donut counts per day, dountCountPerDay, by adding all the donuts sold per hour.</li>
+		<li>Calculate average donuts sold per hour, donutCountPerHour, by dividing dountCountPerDay by the operationHour. </li>
+		<li>Display in the console: store location, the total number of the donuts sold at the location, and the average number of the donuts sold per hour at the location. </li>
+	</ol>
+
+	<table>
+		<thead>
+		<tr>
+			<th>Location</th>
+			<th>Minimum customers per hour</th>
+			<th>Maximum customers per hour</th>
+			<th>Average donuts per customer</th>
+			<th>The hours of operation</th>
+		</tr>
+		</thead>
+		<tbody>
+  		<tr>
+     		<td>Downtown</td>
+     		<td>8</td>
+     		<td>43</td>
+     		<td>4.50</td>
+     		<td>8</td>
+  		</tr>
+  		<tr class="alt">
+     		<td>Capitol Hill</td>
+     		<td>4</td>
+     		<td>37</td>
+     		<td>2.00</td>
+     		<td>24</td>
+  		</tr>
+  		<tr>
+     		<td>South Lake Union</td>
+     		<td>9</td>
+     		<td>23</td>
+     		<td>6.33</td>
+     		<td>10</td>
+  		</tr>
+  		<tr class="alt">
+     		<td>Wedgewood</td>
+     		<td>2</td>
+     		<td>28</td>
+     		<td>1.25</td>
+     		<td>7</td>
+  		</tr>
+		<tr>
+     		<td>Ballard</td>
+     		<td>8</td>
+     		<td>58</td>
+     		<td>3.75</td>
+     		<td>10</td>
+  		</tr>
+	</table>
+</article>
+<footer>
+  <p>&copy; Tomomi Arita, All rights reserved.</p>
+</footer>
+</body>
+
+</html>

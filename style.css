@@ -1,0 +1,43 @@
+body {
+	font-family: arial, sans-serif;
+}
+
+h1, h2 {
+	font-weight: bold;
+	color: #000066;
+}
+
+h1 {
+	font-size: 25px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+p, li {
+	font-size: 15px;
+}
+
+table, th, td {
+   border-collapse: collapse;
+   border: 1px solid #000033;
+   margin: 15px;
+   padding: 4px;
+}
+
+th {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #000066;
+}
+
+tr.alt {
+	background-color: #6699CC;
+}
+
+footer {
+	font-size: 12px;
+	color: #787878;
+	text-align: right; 
+}
