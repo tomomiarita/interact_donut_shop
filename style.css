@@ -32,6 +32,14 @@ th {
     background-color: #000066;
 }
 
+td {
+    text-align: center;
+}
+
+td.local {
+    text-align: left;
+}
+
 tr.alt {
 	background-color: #6699CC;
 }
