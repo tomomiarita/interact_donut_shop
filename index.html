@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script type="text/javascript" src="jquery-2.1.4.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Structured Donuts Shop</title>
 </head>
@@ -20,21 +21,44 @@
 		<li>Display in the console: store location, the total number of the donuts sold at the location, and the average number of the donuts sold per hour at the location. </li>
 	</ol>
 
-	<table>
-		<thead>
-		<tr>
-			<th>Location</th>
-			<th>Minimum customers per hour</th>
-			<th>Maximum customers per hour</th>
-			<th>Average donuts per customer</th>
-			<th>The hours of operation</th>
-			<th># of donuts to bake per day</th>
-			<th># of donuts to bake per hour in average</th>
-		</tr>
-		</thead>
-		<tbody id ="rows">
-		</tbody>
-	</table>
+  <div id="jQTable"></div>
+
+   <div id="info">
+   <div>
+      <h3 class = "trigger">Downtown</h3>
+      <p class = "toggle">
+      Downtown donut shop has 100 kinds of donuts that you would dream to try out. It worthwhile getting there early in the morning. They have 1 hour morning special donuts that sold our very quickly.
+      </p>
+  </div>
+  <div>
+      <h3 class = "trigger">Capitol Hill</h3>
+      <p class = "toggle">
+      Capitol Hill donut shop has 100 kinds of donuts that you would dream to try out. It worthwhile getting there early in the morning. They have 1 hour morning special donuts that sold our very quickly.
+      </p>
+  </div>
+  <div>
+      <h3 class = "trigger">South Lake Union</h3>
+      <p class = "toggle">
+      South Lake Union donut shop has 100 kinds of donuts that you would dream to try out. It worthwhile getting there early in the morning. They have 1 hour morning special donuts that sold our very quickly.
+      </p>
+  </div>
+  <div>
+      <h3 class = "trigger">Wedgewood</h3>
+      <p class = "toggle">
+      Wedgewood donut shop has 100 kinds of donuts that you would dream to try out. It worthwhile getting there early in the morning. They have 1 hour morning special donuts that sold our very quickly.
+      </p>
+  </div>
+  <div>
+      <h3 class = "trigger">Ballard</h3>
+      <p class = "toggle">
+      Ballard donut shop has 100 kinds of donuts that you would dream to try out. It worthwhile getting there early in the morning. They have 1 hour morning special donuts that sold our very quickly.
+      </p>
+  </div>
+  </div>
+  <div id="coupon">
+   <button id="coupon_button" type="button">Click here to get your free donut coupon!</button>
+   <img style="display:none" src="coupon.png" />
+  </div>
 </article>
 <footer>
   <p>&copy; Tomomi Arita, All rights reserved.</p>
@@ -58,7 +82,7 @@
 		}
 			// Calculate the total donut counts per day to bake
 			// Based on the total count per day, calculate how many to bake per hour during the business hour.
-			
+
 			this.bakeCount = function(){
 
 				var dountCountPerDay = 0;
@@ -74,18 +98,8 @@
 
 				var dountCountPerDayRoundUp =  Math.round(dountCountPerDay);
 
-				if(this.alt === false){
-
 				// Build row
-				return "<tr><td class='local'>" + this.locationName + "</td><td>" + this.min + "</td><td>" + this.max + "</td><td>" + this.ave + "</td><td>" + this.hour + "</td><td>" + dountCountPerDayRoundUp + "</td><td>" + donutCountPerHour + "</td></tr>";
-
-				}
-				else
-				{
-					return "<tr class='alt'><td class='local'>" + this.locationName + "</td><td>" + this.min + "</td><td>" + this.max + "</td><td>" + this.ave + "</td><td>" + this.hour + "</td><td>" + dountCountPerDayRoundUp + "</td><td>" + donutCountPerHour + "</td></tr>";
-				}
-
-				//console.log(this.locationName + ": Bake " + dountCountPerDayRoundUp + " per day / " + donutCountPerHour + " per hour.");
+				return [this.locationName, this.min, this.max, this.ave, this.hour, dountCountPerDayRoundUp, donutCountPerHour];
 			};
 		};
 
@@ -100,20 +114,43 @@
 
 		var ballardLocation = new DonutShop("Ballard", 8, 58, 3.75, 10, false);
 
-		// Call bakedCount functin for each location
+    var shops = [downtownLocation, capitolHillLocation, sluLocation, wedgewoodLocation, ballardLocation];
 
-		var allRow = "";
+function buildTable(shops){
+      $table = $("<table></table>");
+      $thead = $("<thead></thead>");
+      $thead.append("<th>Location</th><th>Minimum customers per hour</th><th>Maximum customers per hour</th><th>Average donuts per customer</th><th>The hours of operation</th><th># of donuts to bake per day</th><th># of donuts to bake per hour on average</th>");
+      $tbody = $("<tbody></tbody>");
+      for (var i = 0; i < shops.length; i++){
+        var oneShop = this.shops[i].bakeCount();
+        $tr = $("<tr></tr>");
+        for(var e = 0; e < oneShop.length; e++){
+          console.log(oneShop[e]);
+          $td = $("<td>" + oneShop[e] + "</td>");
+          $tr.append($td);
+        }
+        $tbody.append($tr);
+      }
 
-		allRow += downtownLocation.bakeCount();
-		allRow += capitolHillLocation.bakeCount();
-		allRow += sluLocation.bakeCount();
-		allRow += wedgewoodLocation.bakeCount();
-		allRow += ballardLocation.bakeCount();
+      $table.append($thead);
+      $table.append($tbody);
 
-		//console.log(allRow);
-		document.getElementById('rows').innerHTML = allRow;
-		
-	</script>
+      $( "#jQTable" ).append($table);
+    }
+
+$(document).ready(function() {
+  buildTable(shops);
+  $(".toggle").slideUp("fast");
+  $(".trigger").click(function(){
+      $(this).next(".toggle").slideToggle("fast");
+    });
+  $("#coupon_button").click(function(){
+        $(this).next("img").fadeIn(2000, "swing");
+    });
+
+});
+
+</script>
 
 </body>
 
